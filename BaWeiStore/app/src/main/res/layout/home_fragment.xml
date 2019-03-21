@@ -4,5 +4,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+        <com.bw.com.baweistore.custom.Custom_Search
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/custom_search">
+
+        </com.bw.com.baweistore.custom.Custom_Search>
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/xrlv">
+
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+    <com.stx.xhb.xbanner.XBanner
+
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+
+        android:id="@+id/ban">
+
+    </com.stx.xhb.xbanner.XBanner>
+
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/rlv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
+
 
 </LinearLayout>

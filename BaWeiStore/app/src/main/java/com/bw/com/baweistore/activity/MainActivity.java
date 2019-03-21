@@ -24,6 +24,8 @@ public class MainActivity extends BaseActivity {
     private ShopCart_Fragment shopcart_fragment;
     private Circle_Fragment circle_fragment;
     private Home_Fragment home_fragment;
+    private FragmentManager manager;
+
     @Override
     protected int layoutResID() {
         return R.layout.activity_main;
@@ -38,7 +40,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
         //得到管理
-        FragmentManager manager = getSupportFragmentManager();
+        manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
         //实例化fragment
@@ -56,14 +58,15 @@ public class MainActivity extends BaseActivity {
         rg.check(R.id.rb1);
 
         //默认显示第一个界面
-        transaction.show(home_fragment).hide(circle_fragment).hide(shopcart_fragment).hide(order_fragment).hide(mine_fragment).commit();
+        transaction.show(home_fragment).hide(circle_fragment).hide(shopcart_fragment).hide(order_fragment).hide(mine_fragment);
+        transaction.commit();
 
         //判断隐藏和显示
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 //在得到一下管理者
-                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+                FragmentTransaction transaction1 = manager.beginTransaction();
                 switch (checkedId){
                     case R.id.rb1:
                         transaction1.show(home_fragment).hide(circle_fragment).hide(shopcart_fragment).hide(order_fragment).hide(mine_fragment).commit();
