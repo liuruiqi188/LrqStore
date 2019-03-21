@@ -1,6 +1,7 @@
 package com.bw.com.baweistore.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bw.com.baweistore.R;
+import com.bw.com.baweistore.activity.GoodsInfoActivity;
 import com.bw.com.baweistore.bean.SearchData;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -18,14 +20,26 @@ import java.util.List;
 
 /**
  * @author liuruiqi
- * @fileName ShowAdapter
+ * @fileName HomeShowAdapter
  * @package com.bw.com.baweistore.adapter
  * @date 2019/3/20 20:08
  **/
-public class ShowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeShowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    public interface OnInfoLisenter{
+        void onInfo(String commodityId);
+    }
+    private OnInfoLisenter infoLisenter;
+
+    public void setOnInfoLisenter(OnInfoLisenter infoLisenter){
+        this.infoLisenter=infoLisenter;
+    }
+
+
+
     Context context;
     List<SearchData> result;
-    public ShowAdapter(Context context, List<SearchData> result) {
+    public HomeShowAdapter(Context context, List<SearchData> result) {
         this.context=context;
         this.result=result;
     }
@@ -46,11 +60,23 @@ public class ShowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         String masterPic = searchData.getMasterPic();
         String commodityName = searchData.getCommodityName();
         String price = searchData.getPrice();
+        final String commodityId = searchData.getCommodityId();
 
         //设置值
         viewHolder1.price.setText(price+"元");
         viewHolder1.title.setText(commodityName);
         viewHolder1.img.setImageURI(Uri.parse(masterPic));
+
+        viewHolder1.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GoodsInfoActivity.class);
+                intent.putExtra("commodityId",commodityId);
+                context.startActivity(intent);
+            }
+        });
+
+
 
     }
 

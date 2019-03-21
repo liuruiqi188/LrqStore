@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="280dp"
+                android:layout_height="120dp"
+                android:id="@+id/homesearch_img"
+                app:roundedCornerRadius="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/homesearch_name"/>
+            <TextView
+                android:textSize="40sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/homesearch_price"/>
+
+
+
+</LinearLayout>

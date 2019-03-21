@@ -10,4 +10,5 @@ public class Api {
     public static final String HOME_SHOW_Url="http://172.17.8.100/small/commodity/v1/";
     public static final String HOME_BANNER_Url="http://172.17.8.100/small/commodity/v1/";
     public static final String HOME_SEARCH_Url="http://172.17.8.100/small/commodity/v1/";
+    public static final String GoodsSearch_Url="http://172.17.8.100/small/commodity/v1/";
 }

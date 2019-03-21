@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="cvfvfv"/>
+<com.facebook.drawee.view.SimpleDraweeView
+    android:layout_width="130dp"
+    android:layout_height="130dp"
+    android:id="@+id/mine_img"/>
 </LinearLayout>

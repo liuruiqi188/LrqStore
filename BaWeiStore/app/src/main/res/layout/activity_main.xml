@@ -36,7 +36,7 @@
             android:id="@+id/rb2"
             android:button="@null"
             android:gravity="center"
-            android:text="分类"
+            android:text="圈子"
             />
         <RadioButton
             android:layout_width="0dp"

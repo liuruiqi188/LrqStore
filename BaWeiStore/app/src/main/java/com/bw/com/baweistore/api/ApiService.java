@@ -1,7 +1,9 @@
 package com.bw.com.baweistore.api;
 
 import com.bw.com.baweistore.bean.BannerJson;
+import com.bw.com.baweistore.bean.GoodsJson;
 import com.bw.com.baweistore.bean.SearchJson;
+import com.bw.com.baweistore.bean.ShowJson;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
@@ -20,6 +22,12 @@ public interface ApiService {
 
     @GET("bannerShow")
     Flowable<BannerJson>getHomeBannerUrl();
+
+    @GET("commodityList")
+    Flowable<ShowJson>getHomeSearchUrl();
+
+    @GET("findCommodityDetailsById")
+    Flowable<GoodsJson>getGoodsInfo(@Query("commodityId") String commodityId);
 
 
 }
