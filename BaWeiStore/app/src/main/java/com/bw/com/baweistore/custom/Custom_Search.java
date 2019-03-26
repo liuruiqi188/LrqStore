@@ -28,6 +28,16 @@ public class Custom_Search extends LinearLayout {
         this.searchLisenter=searchLisenter;
     }
 
+    //菜单接口
+    public interface OnMenuLisenter{
+        void onMenu();
+    }
+    private OnMenuLisenter menuLisenter;
+
+    public void setOnMenuLisenter(OnMenuLisenter menuLisenter){
+        this.menuLisenter=menuLisenter;
+    }
+
 
     private EditText goods1;
     private ImageView menu;
@@ -69,6 +79,14 @@ public class Custom_Search extends LinearLayout {
                     return;
                 }
                 searchLisenter.onSearch(goods);
+            }
+        });
+
+        //菜单按钮
+        menu.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuLisenter.onMenu();
             }
         });
 

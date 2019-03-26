@@ -19,6 +19,8 @@ public class ShopCart_Fragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
+        //找控件
+
 
     }
 

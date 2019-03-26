@@ -39,6 +39,7 @@
 
 
         <TextView
+            android:background="@drawable/map1"
             android:gravity="center"
             android:textSize="25sp"
             android:textColor="@color/colorAccent"
@@ -53,6 +54,7 @@
 
     </com.jcodecraeer.xrecyclerview.XRecyclerView>
         <TextView
+            android:background="@drawable/map2"
             android:gravity="center"
             android:textSize="25sp"
             android:textColor="@color/colorAccent"
@@ -66,6 +68,7 @@
 
     </com.jcodecraeer.xrecyclerview.XRecyclerView>
         <TextView
+            android:background="@drawable/map3"
             android:gravity="center"
             android:textSize="25sp"
             android:textColor="@color/colorAccent"

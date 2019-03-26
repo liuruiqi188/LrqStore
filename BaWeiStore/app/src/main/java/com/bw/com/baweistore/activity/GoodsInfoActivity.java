@@ -90,4 +90,11 @@ public class GoodsInfoActivity extends AppCompatActivity implements GoodsInfo_Vi
                 "</script>";
         web.loadDataWithBaseURL(null, result.getDetails() + js, "text/html", "utf-8", null);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Retrofit内存泄漏
+        goodsInfo_presenter.RetrofitOOM();
+    }
 }

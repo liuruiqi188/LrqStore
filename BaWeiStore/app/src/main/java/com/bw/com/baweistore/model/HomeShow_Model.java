@@ -32,9 +32,9 @@ public class HomeShow_Model {
     }
 
 
-    public void relected(String goods) {
+    public void relected(String goods,int page) {
         ApiService apiService = RetrofitUtils.getInstance().ApiService(Api.HOME_SHOW_Url, null, null, ApiService.class);
-        final Flowable<SearchJson> homeShowUrl = apiService.getHomeShowUrl(goods, 1, 5);
+        final Flowable<SearchJson> homeShowUrl = apiService.getHomeShowUrl(goods, page, 5);
         homeShowUrl.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSubscriber<SearchJson>() {

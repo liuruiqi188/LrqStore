@@ -12,6 +12,7 @@
                 android:id="@+id/homesearch_img"
                 app:roundedCornerRadius="30dp"/>
             <TextView
+                android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/homesearch_name"/>
