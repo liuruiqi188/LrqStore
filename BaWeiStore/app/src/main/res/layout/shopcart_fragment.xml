@@ -3,5 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/shopcart_rlv"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorAccent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/shopcart_ck"
+                android:text="全选"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="总价为："
+                android:textSize="30sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginLeft="50dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="去结账"
+                android:layout_marginLeft="200dp"
+                android:id="@+id/shopcart_buy"/>
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -17,4 +17,6 @@ public class Api {
     //http://172.17.8.100/small/commodity/v1/findSecondCategory
     public static final String Erji_Url="http://172.17.8.100/small/commodity/v1/";
     public static final String Third_Url="http://172.17.8.100/small/commodity/v1/";
+    public static final String ShopCart_Url="http://172.17.8.100/small/order/verify/v1/";
+    public static final String AddShopCart_Url="http://172.17.8.100/small/order/verify/v1/";
 }

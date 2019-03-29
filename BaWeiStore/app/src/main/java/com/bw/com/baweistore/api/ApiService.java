@@ -1,5 +1,7 @@
 package com.bw.com.baweistore.api;
 
+import com.bw.com.baweistore.bean.AddShopCartData;
+import com.bw.com.baweistore.bean.AddShopCartJson;
 import com.bw.com.baweistore.bean.AssJson;
 import com.bw.com.baweistore.bean.BannerJson;
 import com.bw.com.baweistore.bean.ErjiJson;
@@ -7,12 +9,18 @@ import com.bw.com.baweistore.bean.GoodsJson;
 import com.bw.com.baweistore.bean.LoginJson;
 import com.bw.com.baweistore.bean.RegistJson;
 import com.bw.com.baweistore.bean.SearchJson;
+import com.bw.com.baweistore.bean.ShopCartJson;
 import com.bw.com.baweistore.bean.ShowJson;
 import com.bw.com.baweistore.bean.ThirdJson;
 
 import io.reactivex.Flowable;
+import okhttp3.RequestBody;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -49,5 +57,13 @@ public interface ApiService {
 
     @GET("findCommodityByCategory")
     Flowable<ThirdJson>getThird(@Query("categoryId") String categoryId, @Query("page") int page, @Query("count") int count );
+
+    @GET("findShoppingCart")
+    Flowable<ShopCartJson>getShopcart(@Header("userId")String userId,@Header("sessionId")String sessionId);
+
+    @Multipart
+    @PUT("syncShoppingCart")
+    Flowable<AddShopCartData>getAddshopcart(@Part("data") RequestBody s, @Header("sessionId")String sessionId, @Header("userId")String userId);
+
 
 }

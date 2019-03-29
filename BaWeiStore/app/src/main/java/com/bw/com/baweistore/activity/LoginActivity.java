@@ -1,11 +1,14 @@
 package com.bw.com.baweistore.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,8 @@ public class LoginActivity extends BaseActivity implements Login_View {
     private Button login;
     private TextView regist;
     private Login_Presenter login_presenter;
+    private SharedPreferences sp;
+    private CheckBox jizhu;
 
     @Override
     protected int layoutResID() {
@@ -38,13 +43,20 @@ public class LoginActivity extends BaseActivity implements Login_View {
         user_pass = findViewById(R.id.userpass);
         login = findViewById(R.id.login);
         regist = findViewById(R.id.regist);
+        jizhu = findViewById(R.id.jizhu);
 
     }
 
     @Override
     protected void initData() {
 
+        sp = getSharedPreferences("first", Context.MODE_PRIVATE);
 
+        //记住登陆
+//        boolean jizhu = sp.getBoolean("jizhu", false);
+//        if (jizhu){
+//
+//        }
 
         //实例化P层
         login_presenter = new Login_Presenter(this);
@@ -83,6 +95,13 @@ public class LoginActivity extends BaseActivity implements Login_View {
     public void login(LoginJson.LoginData result, String status) {
         if (status.equals("0000")){
            EventBus.getDefault().post(result);
+            String sessionId = result.getSessionId();
+            String userId = result.getUserId();
+            SharedPreferences.Editor edit = sp.edit();
+            edit.putString("sessionId",sessionId);
+            edit.putString("userId",userId);
+            edit.putBoolean("jizhu",true);
+            edit.commit();
             finish();
         }else {
             Toast.makeText(this, "账号或密码错误，请重新登录！", Toast.LENGTH_SHORT).show();
