@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bw.com.baweistore.R;
+import com.bw.com.baweistore.activity.AddressActivity;
 import com.bw.com.baweistore.activity.LoginActivity;
 import com.bw.com.baweistore.base.BaseFragment;
 import com.bw.com.baweistore.bean.LoginJson;
@@ -33,6 +34,7 @@ public class Mine_Fragment extends BaseFragment {
 
     private TextView name;
     private SimpleDraweeView head_image;
+    private TextView address;
 
     @Override
     protected int layoutResID() {
@@ -43,6 +45,7 @@ public class Mine_Fragment extends BaseFragment {
     protected void initView(View view) {
         name = view.findViewById(R.id.my_name);
         head_image = view.findViewById(R.id.my_head);
+        address = view.findViewById(R.id.my_address);
 
     }
 
@@ -57,6 +60,15 @@ public class Mine_Fragment extends BaseFragment {
                 //跳转登录界面
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        //跳转收货地址
+        address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),AddressActivity.class));
+
             }
         });
 

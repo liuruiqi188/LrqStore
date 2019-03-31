@@ -10,8 +10,17 @@ public class ShopCartData {
     private String commodityId;
     private String commodityName;
     private String pic;
-    private String price;
-    private String count;
+    private double price;
+    private int count;
+    private boolean ck;
+
+    public boolean isCk() {
+        return ck;
+    }
+
+    public void setCk(boolean ck) {
+        this.ck = ck;
+    }
 
     public String getCommodityId() {
         return commodityId;
@@ -37,19 +46,19 @@ public class ShopCartData {
         this.pic = pic;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }

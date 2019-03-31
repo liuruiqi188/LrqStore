@@ -1,7 +1,9 @@
 package com.bw.com.baweistore.api;
 
+import com.bw.com.baweistore.bean.AddAddressJson;
 import com.bw.com.baweistore.bean.AddShopCartData;
 import com.bw.com.baweistore.bean.AddShopCartJson;
+import com.bw.com.baweistore.bean.AddressJson;
 import com.bw.com.baweistore.bean.AssJson;
 import com.bw.com.baweistore.bean.BannerJson;
 import com.bw.com.baweistore.bean.ErjiJson;
@@ -65,5 +67,9 @@ public interface ApiService {
     @PUT("syncShoppingCart")
     Flowable<AddShopCartData>getAddshopcart(@Part("data") RequestBody s, @Header("sessionId")String sessionId, @Header("userId")String userId);
 
+    @POST("addReceiveAddress")
+    Flowable<AddAddressJson>getAddAddress(@Query("realName") String shoujianren, @Query("phone") String phonenumber, @Query("address") String s, @Query("zipCode") String youbian, @Header("sessionId")String sessionId, @Header("userId") String userId);
 
+    @GET("receiveAddressList")
+    Flowable<AddressJson>getAddress(@Header("userId")String userId,@Header("sessionId")String sessionId);
 }

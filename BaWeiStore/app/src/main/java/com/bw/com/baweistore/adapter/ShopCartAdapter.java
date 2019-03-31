@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,6 +35,18 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
       this.shopCartJson=shopCartJson;
     }
 
+    //接口
+    public interface OnShopcartLisenter{
+        void onShopcart(List<ShopCartData> result);
+    }
+    private OnShopcartLisenter shopcartLisenter;
+
+    public void setOnShopcartLisenter(OnShopcartLisenter shopcartLisenter){
+        this.shopcartLisenter=shopcartLisenter;
+    }
+
+
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -41,32 +56,52 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-          ViewHolder viewHolder1= (ViewHolder) viewHolder;
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
+          final ViewHolder viewHolder1= (ViewHolder) viewHolder;
 
-        List<ShopCartData> result = shopCartJson.getResult();
-        ShopCartData shopCartData = result.get(i);
+        final List<ShopCartData> result = shopCartJson.getResult();
+        final ShopCartData shopCartData = result.get(i);
 
         String commodityName = shopCartData.getCommodityName();
-        String price = shopCartData.getPrice();
+        double price = shopCartData.getPrice();
         String pic = shopCartData.getPic();
+
 
         //设置
         viewHolder1.img.setImageURI(Uri.parse(pic));
         viewHolder1.name.setText(commodityName);
-        viewHolder1.price.setText(price);
-        viewHolder1.jiajian.setOnJiaLisenter(new Custom_jiajian.OnJiaLisenter() {
+        viewHolder1.price.setText(price+"");
+        //选中状态
+        viewHolder1.ck.setChecked(shopCartData.isCk());
+
+        //加减新建方法
+        viewHolder1.jiajian.send(result,i,this);
+
+
+        //加减法回调接口
+        viewHolder1.jiajian.setOnJiajianLisenter(new Custom_jiajian.OnJiajianLisenter() {
             @Override
-            public void onJia(int a) {
+            public void onJiajian() {
+                if (shopcartLisenter!=null){
+                    shopcartLisenter.onShopcart(result);
+                }
 
             }
         });
-        viewHolder1.jiajian.setOnJianLisenter(new Custom_jiajian.OnJianLisenter() {
-            @Override
-            public void onJian(int a) {
+        //
 
+        //选中回调接口
+        viewHolder1.ck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               result.get(i).setCk(isChecked);
+                if (shopcartLisenter!=null){
+                    shopcartLisenter.onShopcart(result);
+                }
             }
         });
+
+
 
     }
 
@@ -80,6 +115,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private final TextView name;
         private final TextView price;
         private final Custom_jiajian jiajian;
+        private final CheckBox ck;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +123,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             name = itemView.findViewById(R.id.name);
             price = itemView.findViewById(R.id.price);
             jiajian = itemView.findViewById(R.id.jiajian);
+            ck = itemView.findViewById(R.id.ck);
         }
     }
 }

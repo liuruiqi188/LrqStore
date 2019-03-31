@@ -9,6 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bw.com.baweistore.R;
+import com.bw.com.baweistore.adapter.ShopCartAdapter;
+import com.bw.com.baweistore.bean.ShopCartData;
+
+import java.util.List;
 
 /**
  * @author liuruiqi
@@ -17,30 +21,25 @@ import com.bw.com.baweistore.R;
  * @date 2019/3/28 15:02
  **/
 public class Custom_jiajian extends LinearLayout {
+    List<ShopCartData> result;
+    int i=0;
+    ShopCartAdapter shopCartAdapter;
+    int count;
 
-    public interface OnJiaLisenter{
-        void onJia(int a);
-    }
-    private OnJiaLisenter jiaLisenter;
+//接口
+    public interface OnJiajianLisenter{
+        void onJiajian();
+}
+    private OnJiajianLisenter jiajianLisenter;
 
-    public void setOnJiaLisenter(OnJiaLisenter jiaLisenter){
-        this.jiaLisenter=jiaLisenter;
-    }
-
-    public interface OnJianLisenter{
-        void onJian(int a);
-    }
-    private OnJianLisenter jianLisenter;
-
-    public void setOnJianLisenter(OnJianLisenter jianLisenter){
-        this.jianLisenter=jianLisenter;
+    public void setOnJiajianLisenter(OnJiajianLisenter jiajianLisenter){
+        this.jiajianLisenter=jiajianLisenter;
     }
 
 
     private Button jia;
     private Button jian;
     private EditText num;
-    private int i=1;
 
     public Custom_jiajian(Context context) {
         super(context);
@@ -66,12 +65,20 @@ public class Custom_jiajian extends LinearLayout {
         jia.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                i++;
-                num.setText(i+"");
-                //接口回调
-                if (jiaLisenter!=null){
-                    jiaLisenter.onJia(i);
+                String n = num.getText().toString().trim();
+                int j = Integer.parseInt(n);
+                j++;
+                num.setText(j+"");
+                //获取当前数量
+                ShopCartData shopCartData = result.get(i);
+                shopCartData.setCount(j);
+                //刷新适配器
+                shopCartAdapter.notifyDataSetChanged();
+                //回调
+                if (jiajianLisenter!=null){
+                    jiajianLisenter.onJiajian();
                 }
+
             }
         });
 
@@ -79,16 +86,22 @@ public class Custom_jiajian extends LinearLayout {
         jian.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (i<=1){
-                    Toast.makeText(getContext(), "物品数量不能小于1", Toast.LENGTH_SHORT).show();
-                    return;
+                String trim = num.getText().toString().trim();
+                int j = Integer.parseInt(trim);
+                if (trim.equals("0")){
+                    Toast.makeText(getContext(), "不能在减了", Toast.LENGTH_SHORT).show();
+                }else {
+                    j--;
+                    num.setText(""+j);
+                    ShopCartData shopCartData = result.get(i);
+                    shopCartData.setCount(j);
+                    //刷新适配器
+                    shopCartAdapter.notifyDataSetChanged();
+                    //回调
+                    if (jiajianLisenter!=null){
+                        jiajianLisenter.onJiajian();
+                    }
                 }
-                i--;
-                num.setText(i+"");
-                if (jianLisenter!=null){
-                    jianLisenter.onJian(i);
-                }
-
 
             }
         });
@@ -97,5 +110,15 @@ public class Custom_jiajian extends LinearLayout {
 
     public Custom_jiajian(Context context,  AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+
+    public void send(List<ShopCartData> result, int i, ShopCartAdapter shopCartAdapter) {
+        this.result=result;
+        this.i=i;
+        this.shopCartAdapter=shopCartAdapter;
+
+        this.count=result.get(i).getCount();
+        this.num.setText(""+this.count);
     }
 }

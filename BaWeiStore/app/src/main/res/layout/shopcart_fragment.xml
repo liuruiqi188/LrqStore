@@ -23,6 +23,7 @@
                 android:id="@+id/shopcart_ck"
                 android:text="全选"/>
             <TextView
+                android:id="@+id/shopcart_price"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"

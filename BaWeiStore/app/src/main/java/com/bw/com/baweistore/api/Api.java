@@ -19,4 +19,6 @@ public class Api {
     public static final String Third_Url="http://172.17.8.100/small/commodity/v1/";
     public static final String ShopCart_Url="http://172.17.8.100/small/order/verify/v1/";
     public static final String AddShopCart_Url="http://172.17.8.100/small/order/verify/v1/";
+    public static final String AddAddress_Url="http://172.17.8.100/small/user/verify/v1/";
+    public static final String Address_Url="http://172.17.8.100/small/user/verify/v1/";
 }

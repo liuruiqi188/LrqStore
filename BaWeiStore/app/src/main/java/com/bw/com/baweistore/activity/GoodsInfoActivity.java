@@ -193,7 +193,7 @@ public class GoodsInfoActivity extends AppCompatActivity implements GoodsInfo_Vi
             for (int i=0;i<result.size();i++){
                 ShopCartData shopCartData = result.get(i);
                 String commodityId = shopCartData.getCommodityId();
-                String count = shopCartData.getCount();
+                int count = shopCartData.getCount();
                 jsonObject1 = new JSONObject();
                 try {
                     jsonObject1.put("commodityId",commodityId);

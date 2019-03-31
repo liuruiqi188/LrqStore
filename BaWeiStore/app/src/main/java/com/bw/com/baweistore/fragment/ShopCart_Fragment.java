@@ -6,6 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.com.baweistore.R;
@@ -30,6 +33,9 @@ public class ShopCart_Fragment extends BaseFragment implements ShopCart_View {
     private XRecyclerView rlv;
     private Shopcart_Presenter shopcart_presenter;
     private SharedPreferences sp;
+    private Button buy;
+    private CheckBox ck;
+    private TextView price;
 
     @Override
     protected int layoutResID() {
@@ -40,6 +46,10 @@ public class ShopCart_Fragment extends BaseFragment implements ShopCart_View {
     protected void initView(View view) {
         //找控件
         rlv = view.findViewById(R.id.shopcart_rlv);
+        buy = view.findViewById(R.id.shopcart_buy);
+        ck = view.findViewById(R.id.shopcart_ck);
+        price = view.findViewById(R.id.shopcart_price);
+
 
 
 
@@ -66,18 +76,69 @@ public class ShopCart_Fragment extends BaseFragment implements ShopCart_View {
     }
 
     @Override
-    public void shopcart(ShopCartJson shopCartJson) {
+    public void shopcart(final ShopCartJson shopCartJson) {
         //得到状态码
         String status = shopCartJson.getStatus();
         String message = shopCartJson.getMessage();
+        final List<ShopCartData> result = shopCartJson.getResult();
         if (!status.equals("0000")){
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             return;
         }
 
         //适配器
-        ShopCartAdapter shopCartAdapter = new ShopCartAdapter(getContext(),shopCartJson);
+        final ShopCartAdapter shopCartAdapter = new ShopCartAdapter(getContext(),shopCartJson);
         rlv.setAdapter(shopCartAdapter);
+
+        //适配器会掉借口
+        shopCartAdapter.setOnShopcartLisenter(new ShopCartAdapter.OnShopcartLisenter() {
+            @Override
+            public void onShopcart(List<ShopCartData> result) {
+                Log.i("liu",result.toString());
+                double sum=0;
+                int ischeck=0;
+                for (int i=0;i<result.size();i++){
+                    boolean ck = result.get(i).isCk();
+                    if (ck){
+                        //选中就计算价格
+                        int count = result.get(i).getCount();
+                        double price = result.get(i).getPrice();
+                        //总价
+                        sum+=((double) count*price);
+                        //用着个判断选中的数量
+                        ischeck++;
+                    }
+                    //设置总价
+                    price.setText("总价为："+sum);
+                }
+
+                //判断ischeck的数量是不是等于集合长度 如果等于把购物车页面的全选框选中
+                if (ischeck==result.size()){
+                    ck.setChecked(true);
+                }else {
+                    ck.setChecked(false);
+                }
+
+
+
+            }
+        });
+
+
+
+
+        //点击ck全选
+        ck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ck.isChecked();
+               // Log.i("fy",checked+"");
+                    for (int i=0;i<result.size();i++){
+                        result.get(i).setCk(checked);
+                }
+                shopCartAdapter.notifyDataSetChanged();
+            }
+        });
 
 
 
